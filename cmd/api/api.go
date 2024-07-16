@@ -16,7 +16,7 @@ func (s *server) InitAPI(addr string) error {
 	h := http.NewServeMux()
 
 	h.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		templ := template.Must(template.ParseFiles("../internal/views/base.html"))
+		templ := template.Must(template.ParseFiles("internal/views/base.html"))
 		templ.Execute(w, nil)
 	})
 
