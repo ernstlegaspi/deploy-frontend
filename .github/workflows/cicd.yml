@@ -20,8 +20,5 @@ jobs:
       - name: GO Tidy
         run: go mod tidy
 
-      - name: Build GO
-        run: go build -o test
-
       - name: Run GO
-        run: ./test
+        run: go run ./cmd/main.go
