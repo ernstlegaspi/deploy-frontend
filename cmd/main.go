@@ -8,7 +8,7 @@ import (
 func main() {
 	server := api.CreateServer()
 
-	if err := server.InitAPI(":3000"); err != nil {
+	if err := server.InitAPI(":3001"); err != nil {
 		fmt.Println("Erororro")
 		panic(err)
 	}
