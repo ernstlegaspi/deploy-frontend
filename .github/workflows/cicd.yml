@@ -32,6 +32,8 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-104-64-171.ap-southeast-2.compute.amazonaws.com << 'EOF'
             cd /home/ubuntu/deploy-frontend/
-            go mod tidy
-            go run cmd/main.go
+            # Ensure no previous instances are running
+            pkill -f cmd/main.go || true
+            # Run the Go application in the background
+            nohup go run cmd/main.go > output.log 2>&1 &
           EOF
