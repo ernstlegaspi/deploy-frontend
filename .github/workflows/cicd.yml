@@ -22,6 +22,3 @@ jobs:
 
       - name: Build GO
         run: go build -o test ./cmd
-
-      - name: Run GO
-        run: ./test
