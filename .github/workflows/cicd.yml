@@ -22,3 +22,21 @@ jobs:
 
       - name: Build GO
         run: go build -o test ./cmd
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Copy files to EC2
+        run: scp -o StrictHostKeyChecking=no test ubuntu@ec2-3-104-64-171.ap-southeast-2.compute.amazonaws.com:/deploy-frontend/cmd/
+
+      - name: SSH into EC2 and restart service
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-104-64-171.ap-southeast-2.compute.amazonaws.com << 'EOF'
+            cd /deploy-frontend/cmd/
+            # Stop the current application process if running (optional)
+            pkill -f test || true
+            # Start the application
+            nohup ./test &
+          EOF
